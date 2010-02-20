@@ -1,0 +1,8 @@
+Planned extensions:
+
+1. True named method parameters
+def foo(first, second) {...}
+foo(first: "one", second: "two")
+
+2. Closures as annotation values
+@MyAnno(value = { println it })
