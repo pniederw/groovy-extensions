@@ -1,0 +1,30 @@
+usePlugin("groovy")
+
+repositories {
+  mavenCentral()
+  mavenRepo urls: "http://m2repo.spockframework.org/snapshots"
+}
+
+dependencies {
+  groovy "org.codehaus.groovy:groovy-all:1.6.7"
+  testCompile "org.spockframework:spock-core:0.4-SNAPSHOT"
+  testCompile "junit:junit:4.7"
+}
+
+task createLibDir << {
+  def libDir = new File(rootDir, "lib")
+  libDir.deleteDir()
+  libDir.mkdir()
+
+  configurations.compile.each {
+    ant.copy(file: it, todir: libDir) 
+  }
+  configurations.testCompile.each {
+    ant.copy(file: it, todir: libDir) 
+  }
+}
+
+task wrapper(type: Wrapper) { 
+  gradleVersion = '0.8'
+  jarPath = 'wrapper' 
+}
