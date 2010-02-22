@@ -1,0 +1,31 @@
+import java.lang.annotation.*
+
+@Retention(RetentionPolicy.RUNTIME)
+@interface MyAnno {
+  Class value()
+}
+
+// original code:
+// @MyAnno({ println it * y })
+// class Foo {}
+
+// transformed code:
+@MyAnno(Foo$__clinit__closure1)
+class Foo {
+  static {
+    // "def x =" is just needed for correct parsing; transform will omit it
+    def x = { println it * y }
+  }
+}
+
+def clazz = Foo.getAnnotation(MyAnno).value()
+
+def owner = [y: 3]
+
+clazz.newInstance(owner, owner).call("go!")
+
+// Conclusion:
+// Approach seems to work fine; should also work for annotations on fields and methods.
+// Biggest unknowns are how stub generator and Groovy Eclipse will react.
+
+// Sidenote: why does AnnotatedNode.getDeclaringClass() return null for classes (only tried for top-level classes) and parameters?
