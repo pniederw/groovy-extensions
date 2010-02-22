@@ -4,5 +4,5 @@ Planned extensions:
 def foo(first, second) {...}
 foo(first: "one", second: "two")
 
-2. Closures as annotation values
+2. Closures as annotation element values
 @MyAnno(value = { println it })
