@@ -25,5 +25,5 @@ class BasicUsage {
   def property
 
   @MyAnnotation({ "method" })
-  def method(@MyAnnotation({ "parameter"}) parameter) {}
+  def method(@MyAnnotation({ "parameter" }) parameter) {}
 }
