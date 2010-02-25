@@ -16,11 +16,19 @@ allprojects {
   }
 }
 
-project(":main") {}
+project(":groovyext") {
+  usePlugin 'maven'
+
+  uploadArchives {
+    repositories.mavenDeployer {
+      repository(url: "file:///var/www/m2repo/snapshots")
+    }
+  }
+}
 
 project(":tests") {
   dependencies {
-    testCompile project(":main")
+    testCompile project(":groovyext")
   }
 }
 

@@ -1,8 +1,10 @@
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
-@GrabResolver(name = 'builds.spockframework.org', root = 'http://builds.spockframework.org//httpAuth/repository/download/org.groovyext/0.1-SNAPSHOT/main')
-@Grab('org.groovyext:main:0.1-SNAPSHOT')
+@GrabResolver(
+  name = 'm2repo.spockframework.org',
+  root = 'http://m2repo.spockframework.org/snapshots')
+@Grab('org.groovyext:groovyext:0.1-SNAPSHOT')
 import org.groovyext.annclosure.*
 
 @Retention(RetentionPolicy.RUNTIME)
