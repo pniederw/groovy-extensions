@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package org.groovyext.annclosure.validate
+package org.groovyext.annclosure
 
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
-import java.lang.reflect.*
 
 @Retention(RetentionPolicy.RUNTIME)
 @interface Require {
@@ -26,19 +25,21 @@ import java.lang.reflect.*
 }
 
 class Validator {
-  boolean validate(Object obj) {
-    obj.getClass().declaredFields.every {
-      validateField(obj, it)
+  def isValid(pogo) {
+    pogo.getClass().declaredFields.every {
+      isValidField(pogo, it)
     }
   }
 
-  boolean validateField(Object obj, Field field) {
-    def ann = field.getAnnotation(Require)
-    if (ann == null) return true
+  def isValidField(pogo, field) {
+    def annotation = field.getAnnotation(Require)
+    !annotation || meetsConstraint(pogo, field, annotation.value())
+  }
 
-    def constraint = ann.value().newInstance(null, null)
+  def meetsConstraint(pogo, field, constraint) {
+    def closure = constraint.newInstance(null, null)
     field.setAccessible(true)
-    constraint.call(field.get(obj))
+    closure.call(field.get(pogo))
   }
 }
 
@@ -51,8 +52,11 @@ class Person {
 
 def validator = new Validator()
 
-def peter = new Person(name: "Peter", age: 33)
-assert validator.validate(peter)
+def fred = new Person(name: "Fred Flintstone", age: 43)
+assert validator.isValid(fred)
 
-def oldie = new Person(name: "Oldie", age: 140)
-assert !validator.validate(oldie)
+def barney = new Person(name: "!!!Barney Rubble!!!", age: 37)
+assert !validator.isValid(barney)
+
+def dino = new Person(name: "Dino", age: 176)
+assert !validator.isValid(dino)

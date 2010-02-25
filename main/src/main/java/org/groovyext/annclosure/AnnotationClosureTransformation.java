@@ -29,7 +29,7 @@ import org.codehaus.groovy.transform.ASTTransformation;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
-public class AnnotationClosureValueTransformation implements ASTTransformation {
+public class AnnotationClosureTransformation implements ASTTransformation {
   public void visit(ASTNode[] nodes, SourceUnit unit) {
     ModuleNode moduleNode = (ModuleNode)nodes[0];
     for (ClassNode classNode : moduleNode.getClasses())
