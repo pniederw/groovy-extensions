@@ -1,1 +1,1 @@
-include 'main', 'tests'
+include 'groovyext', 'tests'
