@@ -46,3 +46,5 @@ assert !validator.isValid(barney)
 
 def dino = new Person(name: "Dino", age: 176)
 assert !validator.isValid(dino)
+
+println "All validations passed!"
