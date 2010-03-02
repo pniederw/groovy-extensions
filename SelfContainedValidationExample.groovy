@@ -1,7 +1,6 @@
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
-@Retention(RetentionPolicy.RUNTIME)
 @interface Require {
   Class value()
 }
@@ -10,6 +9,7 @@ import java.lang.annotation.RetentionPolicy
   name = 'm2repo.spockframework.org',
   root = 'http://m2repo.spockframework.org/snapshots')
 @Grab('org.groovyext:groovyext:0.1-SNAPSHOT')
+@Retention(RetentionPolicy.RUNTIME)
 class Validator {
   def isValid(pogo) {
     pogo.getClass().declaredFields.every {
