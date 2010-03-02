@@ -94,7 +94,7 @@ class ClassRewriter {
     final AtomicInteger count = new AtomicInteger();
 
     for (FieldNode field : classNode.getFields()) {
-      if (!field.isStatic()) continue;
+      if (!field.isStatic() || field.getInitialValueExpression() == null) continue;
 
       field.getInitialValueExpression().visit(new CodeVisitorSupport() {
         public void visitClosureExpression(ClosureExpression expression) {
