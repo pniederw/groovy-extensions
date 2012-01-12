@@ -58,7 +58,7 @@ class NamedParametersSpec extends Specification {
     wannabe.buy("bread", "bakery", 0.99) == [item: "bread", vendor: "bakery", price: 0.99]
   }
 
-  def "can call original method and omit parameter with default value"() {
+  def "can call original method and omit parameters with default value"() {
     expect:
     wannabe.buy("bread", 0.99) == [item: "bread", vendor: "myself", price: 0.99]
   }
