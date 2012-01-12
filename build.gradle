@@ -13,6 +13,9 @@ subprojects {
     maven {
         url "http://snapshots.repository.codehaus.org"
     }
+    maven {
+        url "http://m2repo.spockframework.org/snapshots"
+    }
   }
 
   dependencies {
@@ -33,7 +36,7 @@ project(":groovyext") {
 project(":tests") {
   dependencies {
     testCompile project(":groovyext")
-    testCompile "junit:junit:4.10"
+    testCompile "org.spockframework:spock-core:0.6-groovy-2.0-SNAPSHOT"
   }
 }
 

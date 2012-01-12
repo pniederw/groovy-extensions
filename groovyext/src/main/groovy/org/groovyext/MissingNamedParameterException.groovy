@@ -16,8 +16,8 @@
 package org.groovyext
 
 class MissingNamedParameterException extends RuntimeException {
-  private final String methodName
-  private final String parameterName
+  final String methodName
+  final String parameterName
 
   MissingNamedParameterException(String methodName, String parameterName) {
     this.methodName = methodName
@@ -25,6 +25,6 @@ class MissingNamedParameterException extends RuntimeException {
   }
   
   String getMessage() {
-    "Invocation of method $methodName is missing value for named parameter $parameterName"
+    "Invocation of method '$methodName' is missing value for named parameter '$parameterName'"
   }
 }
