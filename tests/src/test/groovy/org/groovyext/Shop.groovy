@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.groovyext
 
-package org.groovyext.annclosure
+@NamedParameters
+class Shop {
+  Map buy(String item, String vendor = "myself", BigDecimal price) {
+    println "buying $item from $vendor for $price"
+    [item: item, vendor: vendor, price: price]
+  }
 
-@MyAnnotation({ "class" })
-class BasicUsage {  
-  @MyAnnotation({ "field" })
-  public field
-
-  @MyAnnotation({ "property" })
-  def property
-
-  @MyAnnotation({ "method" })
-  def method(@MyAnnotation({ "parameter" }) parameter) {}
+  static Map buyStatic(String item, String vendor = "myself", BigDecimal price) {
+    println "buying static $item from $vendor for $price"
+    [item: item, vendor: vendor, price: price]
+  }
 }

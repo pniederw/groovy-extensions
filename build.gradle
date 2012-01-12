@@ -1,23 +1,27 @@
 allprojects {
+  apply plugin: "idea"
+  
   group = "org.groovyext"
-  version = "0.1-SNAPSHOT"
+  version = "0.2-SNAPSHOT"
+}
 
-  usePlugin("groovy")
+subprojects {
+  apply plugin: "groovy"
 
   repositories {
     mavenCentral()
+    maven {
+        url "http://snapshots.repository.codehaus.org"
+    }
   }
 
   dependencies {
-    groovy("org.codehaus.groovy:groovy-all:1.7.1") {
-      exclude module: "jansi"
-    }
-    testCompile "junit:junit:4.7"
+    groovy "org.codehaus.groovy:groovy-all:2.0.0-beta-3-SNAPSHOT"
   }
 }
 
 project(":groovyext") {
-  usePlugin 'maven'
+  apply plugin: "maven"
 
   uploadArchives {
     repositories.mavenDeployer {
@@ -29,23 +33,10 @@ project(":groovyext") {
 project(":tests") {
   dependencies {
     testCompile project(":groovyext")
-  }
-}
-
-task createLibDir << {
-  def libDir = new File(rootDir, "lib")
-  libDir.deleteDir()
-  libDir.mkdir()
-
-  configurations.compile.each {
-    ant.copy(file: it, todir: libDir)
-  }
-  configurations.testCompile.each {
-    ant.copy(file: it, todir: libDir)
+    testCompile "junit:junit:4.10"
   }
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '0.8'
-  jarPath = 'wrapper'
+  gradleVersion = '1.0-milestone-7'
 }

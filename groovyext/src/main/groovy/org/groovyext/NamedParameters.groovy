@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.groovyext.annclosure
+package org.groovyext
 
 import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.RetentionPolicy
+import java.lang.annotation.Target
+import java.lang.annotation.ElementType
 
-@Retention(RetentionPolicy.RUNTIME)
-public @interface MyAnnotation {
-  Class value()
+import org.codehaus.groovy.transform.GroovyASTTransformationClass
+
+@GroovyASTTransformationClass("org.groovyext.NamedParametersTransformation")
+@Retention(RetentionPolicy.SOURCE)
+@Target([ElementType.METHOD, ElementType.TYPE])
+public @interface NamedParameters {
+  NamedParametersTarget value() default NamedParametersTarget.NON_PRIVATE_METHODS
 }

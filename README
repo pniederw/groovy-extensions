@@ -1,8 +1,14 @@
-Planned extensions:
+This project provides the following Groovy language extensions:
 
-1. True named method parameters
-def foo(first, second) {...}
-foo(first: "one", second: "two")
+1. True named method parameters (first prototype available)
+Declare like this:
+@org.groovyext.NamedParameters
+def foo(first, second = "default value", third) {...}
 
-2. Closures as annotation element values
+Use like this:
+foo(first: "one", third: "third")
+
+2. Closures as annotation element values (already in Groovy proper)
 @MyAnno(value = { println it })
+
+Check out the tests to learn more.

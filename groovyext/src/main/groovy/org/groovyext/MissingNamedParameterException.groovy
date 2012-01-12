@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 the original author or authors.
+ * Copyright 2011 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.groovyext
 
-package org.groovyext.annclosure
+class MissingNamedParameterException extends RuntimeException {
+  private final String methodName
+  private final String parameterName
 
-@MyAnnotation({ "class" })
-class Distractors {
-  static a = { println it; def b = { println it } }
-
-  static {
-    def c = { println it; def d = { println it } }
+  MissingNamedParameterException(String methodName, String parameterName) {
+    this.methodName = methodName
+    this.parameterName = parameterName
   }
-
-  @MyAnnotation({ "field" })
-  public field
-
-  @MyAnnotation({ "property" })
-  def property
-
-  @MyAnnotation({ "method" })
-  def method(@MyAnnotation({ "parameter"}) parameter) {}
+  
+  String getMessage() {
+    "Invocation of method $methodName is missing value for named parameter $parameterName"
+  }
 }
